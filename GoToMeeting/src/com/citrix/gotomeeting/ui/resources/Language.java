@@ -9,7 +9,7 @@ public enum Language {
 	ENGLISH("English", 2),
 	DEUTSCH("Deutsch", 1),
 	ESPANOL("Espanol", 3),
-	FRENCH("Francais", 4),
+	FRENCH("Francais", 4), 
 	ITALIAN("Italiano", 5);
 	
 	private String name;
