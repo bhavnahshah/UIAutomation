@@ -2,6 +2,7 @@ package com.citrix.gotomeeting.ui.resources;
 /**
  * This class is used to define the different languages supported by this application
  * @author bhavna
+ * 
  */
 public enum Language {
 
