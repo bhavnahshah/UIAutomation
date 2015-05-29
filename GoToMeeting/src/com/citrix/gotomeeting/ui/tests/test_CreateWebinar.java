@@ -85,6 +85,7 @@ public class test_CreateWebinar extends TestCase {
 			Assert.assertNotNull(manageWebinar);
 			
 			myWebinar = manageWebinar.gotoMyWebinar();
+			
 			Assert.assertNotNull(myWebinar);
 			Assert.assertTrue(myWebinar.searchWebinar(manageWebinar.webinar));
 		}
