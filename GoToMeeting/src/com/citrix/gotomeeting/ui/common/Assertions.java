@@ -32,7 +32,7 @@ public class Assertions {
 	 */
 	public static boolean isXpathLocatorPresent(WebDriver webdriver,String locator){
 		try{
-			WebElement element = webdriver.findElement(By.xpath(locator));
+			webdriver.findElement(By.xpath(locator));
 			return true;
 		}
 		catch(Exception e){
