@@ -2,7 +2,6 @@ package com.citrix.gotomeeting.ui.resources;
 /**
  * This class is used to define the different languages supported by this application
  * @author bhavna
- * 
  */
 public enum Language {
 
@@ -11,7 +10,7 @@ public enum Language {
 	ESPANOL("Espanol", 3),
 	FRENCH("Francais", 4), 
 	ITALIAN("Italiano", 5);
-	
+
 	private String name;
 	private int list_id;
 	

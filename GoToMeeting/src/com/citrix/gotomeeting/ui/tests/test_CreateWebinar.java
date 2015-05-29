@@ -25,7 +25,6 @@ import junit.framework.TestCase;
 public class test_CreateWebinar extends TestCase {
 	//String username, password;
 	LoginPage login;
-	WebinarType type;
 	int daysFromNow;
 	String startTime;
 	String endTime;
@@ -82,7 +81,7 @@ public class test_CreateWebinar extends TestCase {
 			SchedulePage schedule = myWebinar.scheduleWebinar();
 			Assert.assertNotNull(schedule);
 			
-			ManageWebinarPage manageWebinar = schedule.setUpWebinar(type.ONESESSION, daysFromNow, startTime,endTime,TimeZoneEnum.EST, Language.ENGLISH);
+			ManageWebinarPage manageWebinar = schedule.setUpWebinar(WebinarType.ONESESSION, daysFromNow, startTime,endTime,TimeZoneEnum.EST, Language.ENGLISH);
 			Assert.assertNotNull(manageWebinar);
 			
 			myWebinar = manageWebinar.gotoMyWebinar();
