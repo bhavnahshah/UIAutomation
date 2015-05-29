@@ -84,42 +84,45 @@ public class SchedulePage extends Page{
 	 * @param endTime
 	 * @param timeZone
 	 * @param language
-	 * @throws InterruptedException 
 	 */
-	private void scheduleOneSession(WebDriver webdriver, int daysFromNow, String startTime, String endTime , TimeZoneEnum timeZone, Language language) throws InterruptedException{
-
-		Assertions.waitForElement(webdriver, props.getProperty("Schedule_Start_Date"), 4000);
-		WebElement startDate = webdriver.findElement(By.id(props.getProperty("Schedule_Start_Date")));
-		JavascriptExecutor jsExecutor = (JavascriptExecutor) webdriver;
-		jsExecutor.executeScript("window.scrollTo(0,"+startDate.getLocation().y+")");
-		startDate.click();
-		Assertions.waitForElement(webdriver, props.getProperty("Schedule_UploadRecording"), 5000);
-		DateUtil date = new DateUtil();
-		int dateDifference = date.computeDateDifference(daysFromNow);
-		
-		for(int i=0;i<dateDifference ; i++){
-			webdriver.findElement(By.cssSelector(props.getProperty("Schedule_Month_next"))).click();
+	private void scheduleOneSession(WebDriver webdriver, int daysFromNow, String startTime, String endTime , TimeZoneEnum timeZone, Language language) {
+		try{
+			Assertions.waitForElement(webdriver, props.getProperty("Schedule_Start_Date"), 4000);
+			WebElement startDate = webdriver.findElement(By.id(props.getProperty("Schedule_Start_Date")));
+			JavascriptExecutor jsExecutor = (JavascriptExecutor) webdriver;
+			jsExecutor.executeScript("window.scrollTo(0,"+startDate.getLocation().y+")");
+			startDate.click();
+			Assertions.waitForElement(webdriver, props.getProperty("Schedule_UploadRecording"), 5000);
+			DateUtil date = new DateUtil();
+			int dateDifference = date.computeDateDifference(daysFromNow);
+			
+			for(int i=0;i<dateDifference ; i++){
+				webdriver.findElement(By.cssSelector(props.getProperty("Schedule_Month_next"))).click();
+			}
+			
+			webdriver.findElement(By.xpath("//table[@class='ui-datepicker-calendar']//a[contains(text(),'"+date.getNewDay(daysFromNow)+"')]")).click();
+			Assertions.waitForElement(webdriver, props.getProperty("Schedule_Start_Time"), 4000);
+			WebElement webStartTime = webdriver.findElement(By.cssSelector(props.getProperty("Schedule_Start_Time")));
+			clearTime(webStartTime);
+			webStartTime.sendKeys(startTime);
+			webdriver.findElement(By.id(props.getProperty("Schedule_StartTime_AMPM"))).click();
+			webdriver.findElement(By.cssSelector(props.getProperty("Schedule_StartTime_AMPM_select"))).click();
+			WebElement webEndTime = webdriver.findElement(By.cssSelector(props.getProperty("Schedule_End_Time")));
+			clearTime(webEndTime);
+			webEndTime.sendKeys(endTime);
+			webdriver.findElement(By.id(props.getProperty("Schedule_EndTime_AMPM"))).click();
+			webdriver.findElement(By.cssSelector(props.getProperty("Schedule_EndTime_AMPM_select"))).click();
+			WebElement webTimeZone = webdriver.findElement(By.cssSelector(props.getProperty("MyWebinar_timezone")));
+			webTimeZone.click();
+			webTimeZone.findElement(By.xpath("//li[contains(text(),'"+ timeZone.getTimezone()+"')]")).click();
+			WebElement webLanguage = webdriver.findElement(By.cssSelector(props.getProperty("MyWebinar_language")));
+			webLanguage.click();
+			webLanguage.findElement(By.xpath("//li[contains(text(),'"+ language.getLanguage()+"')]")).click();
+			webinar = new Webinar.WebinarBuilder(strTitle,props.getProperty("Webinar_Desciption"),date.getDisplayDate(daysFromNow),startTime,"AM",endTime, "AM",date.getDateDaylightTimezone(daysFromNow, timeZone),language).build();
 		}
-		
-		webdriver.findElement(By.xpath("//table[@class='ui-datepicker-calendar']//a[contains(text(),'"+date.getNewDay(daysFromNow)+"')]")).click();
-		Assertions.waitForElement(webdriver, props.getProperty("Schedule_Start_Time"), 4000);
-		WebElement webStartTime = webdriver.findElement(By.cssSelector(props.getProperty("Schedule_Start_Time")));
-		clearTime(webStartTime);
-		webStartTime.sendKeys(startTime);
-		webdriver.findElement(By.id(props.getProperty("Schedule_StartTime_AMPM"))).click();
-		webdriver.findElement(By.cssSelector(props.getProperty("Schedule_StartTime_AMPM_select"))).click();
-		WebElement webEndTime = webdriver.findElement(By.cssSelector(props.getProperty("Schedule_End_Time")));
-		clearTime(webEndTime);
-		webEndTime.sendKeys(endTime);
-		webdriver.findElement(By.id(props.getProperty("Schedule_EndTime_AMPM"))).click();
-		webdriver.findElement(By.cssSelector(props.getProperty("Schedule_EndTime_AMPM_select"))).click();
-		WebElement webTimeZone = webdriver.findElement(By.cssSelector(props.getProperty("MyWebinar_timezone")));
-		webTimeZone.click();
-		webTimeZone.findElement(By.xpath("//li[contains(text(),'"+ timeZone.getTimezone()+"')]")).click();
-		WebElement webLanguage = webdriver.findElement(By.cssSelector(props.getProperty("MyWebinar_language")));
-		webLanguage.click();
-		webLanguage.findElement(By.xpath("//li[contains(text(),'"+ language.getLanguage()+"')]")).click();
-		webinar = new Webinar.WebinarBuilder(strTitle,props.getProperty("Webinar_Desciption"),date.getDisplayDate(daysFromNow),startTime,"AM",endTime, "AM",date.getDateDaylightTimezone(daysFromNow, timeZone),language).build();
+		catch (Exception e){
+			System.out.println("Session schedule failed:" + e.getMessage());
+		}
 	}
 
 }
