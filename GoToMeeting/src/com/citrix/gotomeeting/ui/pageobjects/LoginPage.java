@@ -32,9 +32,9 @@ public class LoginPage extends Page{
 			webdriver.get(url);
 			Assertions.waitForElement(webdriver, props.getProperty("Email_Input"), 3000);
 			WebElement emailInput = webdriver.findElement(By.cssSelector(props.getProperty("Email_Input")));
-			emailInput.sendKeys(props.getProperty("Username"));
+			emailInput.sendKeys(System.getProperty("username"));
 			WebElement passwordInput = webdriver.findElement(By.cssSelector(props.getProperty("Password_Input")));
-			passwordInput.sendKeys(props.getProperty("Password"));
+			passwordInput.sendKeys(System.getProperty("password"));
 			WebElement submitButton = webdriver.findElement(By.cssSelector(props.getProperty("Submit_Button")));
 			submitButton.click();
 			if(Assertions.waitForElement(webdriver, props.getProperty("Schedule_Button"), 3000))
