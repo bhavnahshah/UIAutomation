@@ -79,7 +79,7 @@ public class test_CreateWebinar extends TestCase {
 			Assert.assertNotNull(myWebinar);
 			
 			SchedulePage schedule = myWebinar.scheduleWebinar();
-			Assert.assertNotNull(schedule);
+			Assert.assertNotNull(schedule); 
 			
 			ManageWebinarPage manageWebinar = schedule.setUpWebinar(WebinarType.ONESESSION, daysFromNow, startTime,endTime,TimeZoneEnum.EST, Language.ENGLISH);
 			Assert.assertNotNull(manageWebinar);

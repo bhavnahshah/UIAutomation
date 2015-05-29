@@ -11,7 +11,7 @@ public enum Language {
 	FRENCH("Francais", 4), 
 	ITALIAN("Italiano", 5);
 
-	private String name;
+	private String name; 
 	private int list_id;
 	
 	private Language(String name, int id){
